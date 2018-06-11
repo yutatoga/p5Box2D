@@ -4,6 +4,8 @@ var Settings = function() {
   this.restitution = 0.5;
   this.enableDebug = true;
 
+  this.surfaceWidth = 180;
+
   this.drop = function(){
     for (var i = 0; i < particles.length; i++){
       particles[i].killBody();
@@ -31,7 +33,8 @@ function setup() {
   world = createWorld();
 
   // Create the surface
-  surface = new Surface();
+
+  surface = new Surface(settings.surfaceWidth);
 
   var gui = new dat.GUI();
   gui.add(settings, 'drop');
@@ -45,15 +48,17 @@ function draw() {
   background(0);
 
   // We must always step through time!
-  let timeStep = 1.0 / 30;
+  let timeStep = 1.0 / 60;
   // 2nd and 3rd arguments are velocity and position iterations
   world.Step(timeStep, 10, 10);
 
   // particles fall from the top every so often
   if(particles.length <= 100){
     if (random(1) < 0.5) {
-      let sz = random(3, 30);
-      particles.push(new Particle(50, +50, sz, settings.density, settings.friction, settings.restitution));
+      let radius = random(3, 30);
+      let positionX = random(radius, settings.surfaceWidth-radius);
+      let positionY = random(-settings.surfaceWidth/2.0, settings.surfaceWidth/2.0);
+      particles.push(new Particle(positionX, positionY, radius, settings.density, settings.friction, settings.restitution));
     }
 
     if (random(1) < 0.5) {

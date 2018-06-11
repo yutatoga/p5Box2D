@@ -7,10 +7,10 @@
 // An uneven surface boundary
 
 class Surface {
-  constructor() {
+  constructor(surfaceWidth) {
     this.surface = [];
     // Here we keep track of the screen coordinates of the chain
-    let surfaceWidth = 180;
+    this.surfaceWidth = surfaceWidth || 180;
     let superHigh = -10000;
 
     // left box

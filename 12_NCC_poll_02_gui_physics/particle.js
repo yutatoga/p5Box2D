@@ -37,7 +37,7 @@ class Particle {
 
     // Some additional stuff
     // initial force
-    this.body.SetLinearVelocity(new box2d.b2Vec2(random(-5, 5), random(2, 5)));
+    this.body.SetLinearVelocity(new box2d.b2Vec2(random(-5, 5), random(30, 50)));
     this.body.SetAngularVelocity(random(-5, 5));
   }
 

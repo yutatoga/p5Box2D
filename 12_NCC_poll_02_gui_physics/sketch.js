@@ -1,4 +1,9 @@
 var Settings = function() {
+  this.density = 1.0;
+  this.friction = 0.1;
+  this.restitution = 0.5;
+  this.enableDebug = true;
+
   this.drop = function(){
     for (var i = 0; i < particles.length; i++){
       particles[i].killBody();
@@ -30,6 +35,10 @@ function setup() {
 
   var gui = new dat.GUI();
   gui.add(settings, 'drop');
+  gui.add(settings, 'density', 0, 100);
+  gui.add(settings, 'friction', 0, 100);
+  gui.add(settings, 'restitution', 0, 1);
+  gui.add(settings, 'enableDebug');
 }
 
 function draw() {
@@ -44,12 +53,12 @@ function draw() {
   if(particles.length <= 100){
     if (random(1) < 0.5) {
       let sz = random(3, 30);
-      particles.push(new Particle(50, -50, sz));
+      particles.push(new Particle(50, +50, sz, settings.density, settings.friction, settings.restitution));
     }
 
     if (random(1) < 0.5) {
       let sz2 = random(3, 30);
-      particles.push(new Particle(width-50, -50, sz2));
+      particles.push(new Particle(width-50, +50, sz2, settings.density, settings.friction, settings.restitution));
     }
   }
 
@@ -58,7 +67,7 @@ function draw() {
 
   // Display all the particles
   for (let i = particles.length - 1; i >= 0; i--) {
-    particles[i].display();
+    particles[i].display(settings.enableDebug);
     if (particles[i].done()) {
       particles.splice(i, 1);
     }

@@ -1,7 +1,7 @@
 var Settings = function() {
-  this.density = 1.0;
+  this.density = 3.0;
   this.friction = 0.1;
-  this.restitution = 0.5;
+  this.restitution = 0.53;
   this.enableDebug = true;
 
   this.surfaceWidth = 180;
@@ -50,12 +50,12 @@ function draw() {
   // We must always step through time!
   let timeStep = 1.0 / 60;
   // 2nd and 3rd arguments are velocity and position iterations
-  world.Step(timeStep, 10, 10);
+  world.Step(timeStep, 40, 20);
 
   // particles fall from the top every so often
   if(particles.length <= 100){
     if (random(1) < 0.5) {
-      let radius = random(3, 30);
+      let radius = random(5, 30);
       let positionX = random(radius, settings.surfaceWidth-radius);
       let positionY = random(-settings.surfaceWidth/2.0, settings.surfaceWidth/2.0);
       particles.push(new Particle(positionX, positionY, radius, settings.density, settings.friction, settings.restitution));
@@ -68,7 +68,9 @@ function draw() {
   }
 
   // Draw the surface
-  // surface.display();
+  if(settings.enableDebug){
+    surface.display();
+  }
 
   // Display all the particles
   for (let i = particles.length - 1; i >= 0; i--) {

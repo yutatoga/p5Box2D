@@ -1,10 +1,15 @@
 var Settings = function() {
+  this.width = 960;
+  this.height = 540;
+  this.surfaceWidth = 180;
+
+  this.particleRadiusMin = 5;
+  this.particleRadiusMax = 30;
+
   this.density = 3.0;
   this.friction = 0.1;
   this.restitution = 0.53;
   this.enableDebug = true;
-
-  this.surfaceWidth = 180;
 
   this.ratioLeft = 0.3;
   this.paritcleAddSpeed = 0.5; // 0~1: 1 is maximum speed
@@ -41,7 +46,7 @@ var volumeRight = 0;
 var volumeMagicNumber = 1.25;
 
 function setup() {
-  createCanvas(960, 540);
+  createCanvas(settings.width, settings.height);
 
   // Initialize box2d physics and create the world
   world = createWorld();
@@ -71,7 +76,7 @@ function draw() {
 
   // LEFT
   if (random(1) < settings.paritcleAddSpeed && (volumeLeft * volumeMagicNumber) / (settings.surfaceWidth * height) <  settings.ratioLeft) {
-    let radius = random(5, 30);
+    let radius = random(settings.particleRadiusMin, settings.particleRadiusMax);
     volumeLeft += radius * radius * Math.PI;
 
     let positionX = random(radius, settings.surfaceWidth - radius);
@@ -81,7 +86,7 @@ function draw() {
 
   // RIGHT
   if (random(1) < settings.paritcleAddSpeed && (volumeRight * volumeMagicNumber) / (settings.surfaceWidth * height) < (1 - settings.ratioLeft)) {
-    let radius = random(5, 30);
+    let radius = random(settings.particleRadiusMin, settings.particleRadiusMax);
     volumeRight += radius * radius * Math.PI;
 
     let positionX = random(width - settings.surfaceWidth + radius, width - radius);

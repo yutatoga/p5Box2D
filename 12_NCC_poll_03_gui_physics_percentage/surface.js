@@ -25,8 +25,6 @@ class Surface {
     this.surface.push(new box2d.b2Vec2(width, height));
     this.surface.push(new box2d.b2Vec2(width, superHigh));
 
-
-
     for (let i = 0; i < this.surface.length; i++) {
       this.surface[i] = scaleToWorld(this.surface[i]);
     }
@@ -56,7 +54,7 @@ class Surface {
   // A simple function to just draw the edge chain as a series of vertex points
   display() {
     strokeWeight(1);
-    stroke(200);
+    stroke(0, 255, 255);
     fill(200);
     beginShape();
     for (let i = 0; i < this.surface.length; i++) {

@@ -61,7 +61,13 @@ function setup() {
   gui.add(settings, 'density', 0, 100);
   gui.add(settings, 'friction', 0, 100);
   gui.add(settings, 'restitution', 0, 1);
-  gui.add(settings, 'enableDebug');
+  gui.add(settings, 'enableDebug').onChange(function(event){
+    if(event){
+      document.body.style.backgroundColor = "#fff";
+    }else{
+      document.body.style.backgroundColor = "#000";
+    }
+  });
 }
 
 function draw() {
